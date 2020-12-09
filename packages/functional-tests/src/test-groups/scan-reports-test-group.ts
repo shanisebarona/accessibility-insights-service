@@ -37,7 +37,8 @@ export class ScanReportTestGroup extends FunctionalTestGroup {
         const response = await this.a11yServiceClient.getScanStatus(this.testContextData.consolidatedScanId);
         const reportsInfo = (<ScanRunResultResponse>response.body).reports;
 
-        expect((<ScanRunResultResponse>response.body).reports, 'Expected three reports to be returned').to.have.lengthOf(3);
+        expect((<ScanRunResultResponse>response.body).reports, 'Expected three reports to be returned').to.have.lengthOf(4);
+        console.log("LOOK HERE SOMETHING SOMETHING");
 
         await Promise.all(
             reportsInfo.map(async (reportData: ScanReport) => {

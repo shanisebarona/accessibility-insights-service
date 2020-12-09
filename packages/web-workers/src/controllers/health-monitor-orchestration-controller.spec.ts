@@ -326,7 +326,7 @@ describe('HealthMonitorOrchestrationController', () => {
             expect(actualStepsCallCount).toEqual(expectedStepsCallCount);
 
             orchestratorIterator.next();
-            expectedStepsCallCount.getScanReportCount += 3;
+            expectedStepsCallCount.getScanReportCount += 1;
             expect(actualStepsCallCount).toEqual(expectedStepsCallCount);
 
             orchestratorIterator.next();
