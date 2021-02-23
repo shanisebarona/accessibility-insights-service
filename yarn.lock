@@ -2596,9 +2596,9 @@
   integrity sha512-y7mImlc/rNkvCRmg8gC3/lj87S7pTUIJ6QGjwHR9WQJcFs+ZMTOaoPrkdFA/YdbuqVEmEbb5RdhVxMkAcgOnpg==
 
 "@types/cors@^2.8.8":
-  version "2.8.9"
-  resolved "https://registry.yarnpkg.com/@types/cors/-/cors-2.8.9.tgz#4bd1fcac72eca8d5bec93e76c7fdcbdc1bc2cd4a"
-  integrity sha512-zurD1ibz21BRlAOIKP8yhrxlqKx6L9VCwkB5kMiP6nZAhoF5MvC7qS1qPA7nRcr1GJolfkQC7/EAL4hdYejLtg==
+  version "2.8.10"
+  resolved "https://registry.yarnpkg.com/@types/cors/-/cors-2.8.10.tgz#61cc8469849e5bcdd0c7044122265c39cec10cf4"
+  integrity sha512-C7srjHiVG3Ey1nR6d511dtDkCEjxuN9W1HWAEjGq8kpcwmNM6JJkpC0xvabM7BXTG2wDq8Eu33iH9aQKa7IvLQ==
 
 "@types/dateformat@^3.0.1":
   version "3.0.1"
@@ -2827,9 +2827,9 @@
   integrity sha512-ge4xZ3vSBornVYlDnk7yZ0gK6ChHf/CHB7Gl1I0Jhah8DDnEQqBzgohYG4FX4p81TNirSETOiSyn+y1r9/IR6w==
 
 "@types/node@^14.14.10":
-  version "14.14.22"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.22.tgz#0d29f382472c4ccf3bd96ff0ce47daf5b7b84b18"
-  integrity sha512-g+f/qj/cNcqKkc3tFqlXOYjrmZA+jNBiDzbP3kH+B+otKFqAdPgVTGP1IeKRdMml/aE69as5S4FqtxAbl+LaMw==
+  version "14.14.28"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.28.tgz#cade4b64f8438f588951a6b35843ce536853f25b"
+  integrity sha512-lg55ArB+ZiHHbBBttLpzD07akz0QPrZgUODNakeC09i62dnrywr9mFErHuaPlB6I7z+sEbK+IYmplahvplCj2g==
 
 "@types/node@^8.0.47":
   version "8.10.62"
@@ -3612,19 +3612,19 @@ apify-client@^0.6.0:
     underscore "^1.9.1"
 
 apify-shared@>=0.5.0, apify-shared@^0.1.45, apify-shared@^0.4.0, apify-shared@^0.5.0:
-  version "0.5.7"
-  resolved "https://registry.yarnpkg.com/apify-shared/-/apify-shared-0.5.7.tgz#fe35c6587a2e8f8f602124115ed9031b08d5c081"
-  integrity sha512-8azrrOsJt5d0ZtnWKzf4kUXYOP9VPCE+pEi5HrPXPEcH1WAmuDR5UCATlG9RFzNP5JyJUtIeZsOuk33dvSHQZg==
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/apify-shared/-/apify-shared-0.6.0.tgz#b410efe378b8e53568963eb33658a6090fe3827e"
+  integrity sha512-GSTV0BZ0L2kSYec/EXmaUebbDCB3K+pA/WV1Azlcpod0MhTJNsCi9sKARp/XxdhnjCNIHcxaJYiKD1vZA39sEw==
   dependencies:
-    axios "^0.21.0"
+    axios "^0.21.1"
     chalk "^4.0.0"
     cherow "^1.6.9"
     clone "^2.1.1"
-    countries-list "^2.5.6"
+    countries-list "^2.6.1"
     create-hmac "^1.1.7"
-    git-url-parse "^11.2.0"
+    git-url-parse "^11.4.4"
     is-buffer "^2.0.5"
-    marked "^1.2.3"
+    marked "^2.0.0"
     match-all "^1.2.6"
     moment "^2.29.1"
     request "^2.88.0"
@@ -3892,7 +3892,7 @@ axe-sarif-converter@^2.6.0:
     axe-core "^3.2.2 || ^4.0.0"
     yargs "^16.0.3"
 
-axios@>=0.21.1, axios@^0.21.0, axios@^0.21.1:
+axios@>=0.21.1, axios@^0.21.1:
   version "0.21.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
   integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
@@ -4978,10 +4978,10 @@ cosmiconfig@^6.0.0:
     path-type "^4.0.0"
     yaml "^1.7.2"
 
-countries-list@^2.5.6:
-  version "2.5.6"
-  resolved "https://registry.yarnpkg.com/countries-list/-/countries-list-2.5.6.tgz#af237e7d00b2d1283fe766614a945fe5348eefbb"
-  integrity sha512-IEt6KCIzexbR1pTvSJakKCKbqlmHKkEO4oYHN6UCiNToUdN/zXy/1NxiUfZ3ktS0QO/UryCJGPoLkLdYsrAzNw==
+countries-list@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/countries-list/-/countries-list-2.6.1.tgz#d479757ac873b1e596ccea0a925962d20396c0cb"
+  integrity sha512-jXM1Nv3U56dPQ1DsUSsEaGmLHburo4fnB7m+1yhWDUVvx5gXCd1ok/y3gXCjXzhqyawG+igcPYcAl4qjkvopaQ==
 
 cp-file@^7.0.0:
   version "7.0.0"
@@ -5636,9 +5636,9 @@ engine.io-parser@~4.0.0:
     base64-arraybuffer "0.1.4"
 
 engine.io@>=4.0.0, engine.io@~4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/engine.io/-/engine.io-4.1.0.tgz#d8ac90a09ed9fc703abf87023f1e1815e33f044e"
-  integrity sha512-vW7EAtn0HDQ4MtT5QbmCHF17TaYLONv2/JwdYsq9USPRZVM4zG7WB3k0Nc321z8EuSOlhGokrYlYx4176QhD0A==
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/engine.io/-/engine.io-4.1.1.tgz#9a8f8a5ac5a5ea316183c489bf7f5b6cf91ace5b"
+  integrity sha512-t2E9wLlssQjGw0nluF6aYyfX8LwYU8Jj0xct+pAhfWfv/YrBn6TSNtEYsgxHIfaMqfrLx07czcMg9bMN6di+3w==
   dependencies:
     accepts "~1.3.4"
     base64id "2.0.0"
@@ -6749,10 +6749,10 @@ git-url-parse@^11.1.2:
   dependencies:
     git-up "^4.0.0"
 
-git-url-parse@^11.2.0:
-  version "11.4.0"
-  resolved "https://registry.yarnpkg.com/git-url-parse/-/git-url-parse-11.4.0.tgz#f2bb1f2b00f05552540e95a62e31399a639a6aa6"
-  integrity sha512-KlIa5jvMYLjXMQXkqpFzobsyD/V2K5DRHl5OAf+6oDFPlPLxrGDVQlIdI63c4/Kt6kai4kALENSALlzTGST3GQ==
+git-url-parse@^11.4.4:
+  version "11.4.4"
+  resolved "https://registry.yarnpkg.com/git-url-parse/-/git-url-parse-11.4.4.tgz#5d747debc2469c17bc385719f7d0427802d83d77"
+  integrity sha512-Y4o9o7vQngQDIU9IjyCmRJBin5iYjI5u9ZITnddRZpD7dcCFQj2sL2XuMNbLRE4b4B/4ENPsp2Q8P44fjAZ0Pw==
   dependencies:
     git-up "^4.0.0"
 
@@ -8974,10 +8974,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-marked@1.0.0, marked@>=1.1.1, marked@^1.2.3:
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-1.2.8.tgz#5008ece15cfa43e653e85845f3525af4beb6bdd4"
-  integrity sha512-lzmFjGnzWHkmbk85q/ILZjFoHHJIQGF+SxGEfIdGk/XhiTPhqGs37gbru6Kkd48diJnEyYwnG67nru0Z2gQtuQ==
+marked@1.0.0, marked@>=1.1.1, marked@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-2.0.0.tgz#9662bbcb77ebbded0662a7be66ff929a8611cee5"
+  integrity sha512-NqRSh2+LlN2NInpqTQnS614Y/3NkVMFFU6sJlRFEpxJ/LHuK/qJECH7/fXZjk4VZstPW/Pevjil/VtSONsLc7Q==
 
 match-all@^1.2.6:
   version "1.2.6"
@@ -11579,9 +11579,9 @@ socket.io-parser@>=3.4.1, socket.io-parser@~4.0.3:
     debug "~4.3.1"
 
 socket.io@>=2.4.0, socket.io@^2.3.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/socket.io/-/socket.io-3.1.0.tgz#4f3accda31e95893f618090c9cb5e85d345421fb"
-  integrity sha512-Aqg2dlRh6xSJvRYK31ksG65q4kmBOqU4g+1ukhPcoT6wNGYoIwSYPlCPuRwOO9pgLUajojGFztl6+V2opmKcww==
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/socket.io/-/socket.io-3.1.1.tgz#905e3d4a3b37d8e7970e67a4a6eb81110a5778ba"
+  integrity sha512-7cBWdsDC7bbyEF6WbBqffjizc/H4YF1wLdZoOzuYfo2uMNSFjJKuQ36t0H40o9B20DO6p+mSytEd92oP4S15bA==
   dependencies:
     "@types/cookie" "^0.4.0"
     "@types/cors" "^2.8.8"

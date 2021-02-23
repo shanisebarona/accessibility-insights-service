@@ -17,7 +17,7 @@ module.exports = (env) => {
             '@axe-core/puppeteer',
         ],
         entry: {
-            ['host-browser-service']: path.resolve('./src/host-browser-service.ts'),
+            ['host-browser-service']: path.resolve('./src/index.ts'),
         },
         mode: 'development',
         module: {
@@ -36,14 +36,10 @@ module.exports = (env) => {
                     exclude: ['/node_modules/', /\.(spec|e2e)\.ts$/],
                 },
                 {
-                    test: /\.ts$/,
+                    test: /\.node$/,
                     use: [
                         {
-                            loader: 'shebang-loader',
-                            options: {
-                                transpileOnly: true,
-                                experimentalWatchApi: true,
-                            },
+                            loader: 'node-loader',
                         },
                     ],
                 },

@@ -34,9 +34,13 @@
     "dependencies": {
         "@axe-core/puppeteer": "^4.1.0",
         "axios": "^0.21.1",
-        "puppeteer": "^5.5.0",
         "common": "^1.0.0",
+        "inversify": "^5.0.5",
         "logger": "1.0.0",
+        "puppeteer": "^5.5.0",
+        "reflect-metadata": "^0.1.13",
+        "scanner-global-library": "1.0.0",
+        "service-library": "1.0.0",
         "yargs": "^16.2.0"
     }
 }
