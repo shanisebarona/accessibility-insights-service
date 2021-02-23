@@ -8,9 +8,7 @@ import Puppeteer from 'puppeteer';
 export class BrowserLauncher {
     private readonly browsers: Set<Puppeteer.Browser> = new Set();
 
-    constructor(
-        @inject(WebDriver) private readonly webDriver: WebDriver,
-    ) {}
+    constructor(@inject(WebDriver) private readonly webDriver: WebDriver) {}
 
     public async launch(browserExecutablePath?: string): Promise<Puppeteer.Browser> {
         const browser = await this.webDriver.launch(browserExecutablePath);

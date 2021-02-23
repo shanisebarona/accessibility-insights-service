@@ -19,7 +19,7 @@ export class BrowserServer {
             try {
                 if (req.url.endsWith('browser')) {
                     const browser = await launcher.launch();
-                    res.writeHead(200, {'Content-Type': 'application/json'});
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ wsEndpoint: browser.wsEndpoint() }));
                 }
             } catch (e) {
@@ -34,7 +34,9 @@ export class BrowserServer {
         });
 
         server.listen(8585, () => {
-            this.logger.logInfo(`make a request to http://localhost:8585/browser to start a new browser instance; ws endpoint will be returned`);
+            this.logger.logInfo(
+                `make a request to http://localhost:8585/browser to start a new browser instance; ws endpoint will be returned`,
+            );
         });
     }
 }

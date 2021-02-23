@@ -16,7 +16,7 @@ describe(BrowserLauncher, () => {
         const webdriverMock = Mock.ofType(WebDriver);
         testSubject = new BrowserLauncher(webdriverMock.object);
 
-        webdriverMock.setup(m => m.launch(It.isAny())).returns(() => Promise.resolve(browserMock.object));
+        webdriverMock.setup((m) => m.launch(It.isAny())).returns(() => Promise.resolve(browserMock.object));
     });
 
     it('launches browser via webdriver', async () => {
@@ -28,6 +28,6 @@ describe(BrowserLauncher, () => {
         const browser = await testSubject.launch();
         expect(browser).toBe(browserMock.object);
         await testSubject.closeAll();
-        browserMock.verify(m => m.close(), Times.once());
+        browserMock.verify((m) => m.close(), Times.once());
     });
 });
