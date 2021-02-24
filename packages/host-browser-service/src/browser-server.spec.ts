@@ -48,7 +48,7 @@ describe(BrowserServer, () => {
         const res = Mock.ofType<http.ServerResponse>();
         await requestListener(req, res.object);
 
-        res.verify((r) => r.end(), Times.once());
+        res.verify((r) => r.end(undefined), Times.once());
     });
 
     it('/browser: if launch error, responds with 400', async () => {
@@ -60,7 +60,7 @@ describe(BrowserServer, () => {
         const res = Mock.ofType<http.ServerResponse>();
         await requestListener(req, res.object);
         res.verify((r) => r.writeHead(400), Times.once());
-        res.verify((r) => r.end(), Times.once());
+        res.verify((r) => r.end(undefined), Times.once());
         loggerMock.verify((m) => m.logInfo(It.isAny()), Times.once());
     });
 
@@ -79,6 +79,18 @@ describe(BrowserServer, () => {
 
         res.verify((r) => r.writeHead(200, { 'Content-Type': 'application/json' }), Times.once());
         res.verify((r) => r.end(JSON.stringify({ wsEndpoint: 'ws' })), Times.once());
+    });
+
+    it('/closeStale: closes stale browsers', async () => {
+        const req = {
+            url: '/closeStale',
+        } as http.IncomingMessage;
+
+        const res = Mock.ofType<http.ServerResponse>();
+        await requestListener(req, res.object);
+
+        launcherMock.verify((l) => l.closeStale(), Times.once());
+        res.verify((r) => r.end(undefined), Times.once());
     });
 
     it('on close, closes all browsers', () => {
