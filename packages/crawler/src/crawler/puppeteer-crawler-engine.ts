@@ -4,6 +4,7 @@ import Apify from 'apify';
 import { inject, injectable } from 'inversify';
 // @ts-ignore
 import * as cheerio from 'cheerio';
+import { isEmpty } from 'lodash';
 import { CrawlerRunOptions } from '../types/crawler-run-options';
 import { ApifyRequestQueueProvider, crawlerIocTypes, PageProcessorFactory } from '../types/ioc-types';
 import { CrawlerConfiguration } from './crawler-configuration';
@@ -26,7 +27,7 @@ export class PuppeteerCrawlerEngine {
         this.crawlerConfiguration.setMemoryMBytes(crawlerRunOptions.memoryMBytes);
         this.crawlerConfiguration.setSilentMode(crawlerRunOptions.silentMode);
 
-        const puppeteerDefaultOptions = ['--disable-dev-shm-usage'];
+        const puppeteerDefaultOptions = ['--disable-dev-shm-usage', '--no-sandbox', '--disable-setuid-sandbox'];
         const pageProcessor = this.pageProcessorFactory();
         const puppeteerCrawlerOptions: Apify.PuppeteerCrawlerOptions = {
             handlePageTimeoutSecs: 300, // timeout includes all page processing activity (navigation, rendering, accessibility scan, etc.)
@@ -44,6 +45,14 @@ export class PuppeteerCrawlerEngine {
                 },
             } as Apify.LaunchPuppeteerOptions,
         };
+
+        if (!isEmpty(crawlerRunOptions.chromePath)) {
+            puppeteerCrawlerOptions.launchPuppeteerOptions = {
+                ...puppeteerCrawlerOptions.launchPuppeteerOptions,
+                useChrome: true,
+            } as Apify.LaunchPuppeteerOptions;
+            this.crawlerConfiguration.setChromePath(crawlerRunOptions.chromePath);
+        }
 
         if (crawlerRunOptions.debug === true) {
             this.crawlerConfiguration.setSilentMode(false);

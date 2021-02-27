@@ -244,6 +244,45 @@ describe(Page, () => {
         browserMock.verify(async (o) => o.newPage(), Times.once());
     });
 
+    it('create() with browser url', async () => {
+        browserMock
+            .setup(async (o) => o.newPage())
+            .returns(() => Promise.resolve(puppeteerPageMock.object))
+            .verifiable();
+        webDriverMock
+            .setup(async (m) => m.launch(It.isValue('path')))
+            .returns(() => Promise.resolve(browserMock.object))
+            .verifiable();
+        page.browser = undefined;
+        page.page = undefined;
+
+        await page.create({
+            browserExecutablePath: 'path',
+        });
+
+        browserMock.verify(async (o) => o.newPage(), Times.once());
+    });
+
+    it('create() prioritizes ws endpoint option if provided', async () => {
+        browserMock
+            .setup(async (o) => o.newPage())
+            .returns(() => Promise.resolve(puppeteerPageMock.object))
+            .verifiable();
+        webDriverMock
+            .setup(async (m) => m.connect(It.isValue('ws')))
+            .returns(() => Promise.resolve(browserMock.object))
+            .verifiable();
+        page.browser = undefined;
+        page.page = undefined;
+
+        await page.create({
+            browserExecutablePath: 'path',
+            browserWSEndpoint: 'ws',
+        });
+
+        browserMock.verify(async (o) => o.newPage(), Times.once());
+    });
+
     it('close()', async () => {
         webDriverMock
             .setup(async (o) => o.close())
@@ -253,30 +292,30 @@ describe(Page, () => {
         await page.close();
     });
 
-    describe('getUnderlyingPage', () => {
-        it('returns null if page not launched', () => {
-            expect(page.getUnderlyingPage()).toBeNull();
+    describe('isOpen()', () => {
+        it('returns false if page not launched', () => {
+            expect(page.isOpen()).toEqual(false);
         });
 
-        it('returns null if no url was navigated to', () => {
+        it('returns false if no url was navigated to', () => {
             simulatePageLaunch();
 
-            expect(page.getUnderlyingPage()).toBeNull();
+            expect(page.isOpen()).toEqual(false);
         });
 
-        it('returns null if there was a browser error', () => {
+        it('returns false if there was a browser error', () => {
             simulatePageLaunch();
             const browserError = { errorType: 'SslError', statusCode: 500 } as BrowserError;
             simulatePageNavigation(puppeteerResponseMock.object, browserError);
 
-            expect(page.getUnderlyingPage()).toBeNull();
+            expect(page.isOpen()).toEqual(false);
         });
 
-        it('returns underlying puppeteer page', () => {
+        it('returns true if page was open successfully', () => {
             simulatePageLaunch();
             simulatePageNavigation(puppeteerResponseMock.object);
 
-            expect(page.getUnderlyingPage()).toBe(puppeteerPageMock.object);
+            expect(page.isOpen()).toEqual(true);
         });
     });
 

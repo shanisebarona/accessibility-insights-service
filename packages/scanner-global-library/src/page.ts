@@ -1,5 +1,6 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
+
 import { System } from 'common';
 import { inject, injectable, optional } from 'inversify';
 import { GlobalLogger } from 'logger';
@@ -12,6 +13,11 @@ import { WebDriver } from './web-driver';
 import { PageNavigator } from './page-navigator';
 import { BrowserError } from './browser-error';
 
+export interface BrowserStartOptions {
+    browserExecutablePath?: string;
+    browserWSEndpoint?: string;
+}
+
 @injectable()
 export class Page {
     public requestUrl: string;
@@ -19,11 +25,17 @@ export class Page {
     public browser: Puppeteer.Browser;
     public navigationResponse: Puppeteer.Response;
     public lastBrowserError: BrowserError;
+
     public get userAgent(): string {
         return this.pageNavigator.pageConfigurator.getUserAgent();
     }
+
     public get browserResolution(): string {
         return this.pageNavigator.pageConfigurator.getBrowserResolution();
+    }
+
+    public get currentPage(): Puppeteer.Page {
+        return this.page;
     }
 
     constructor(
@@ -33,8 +45,13 @@ export class Page {
         @inject(GlobalLogger) @optional() private readonly logger: GlobalLogger,
     ) {}
 
-    public async create(browserExecutablePath?: string): Promise<void> {
-        this.browser = await this.webDriver.launch(browserExecutablePath);
+    public async create(options?: BrowserStartOptions): Promise<void> {
+        if (options?.browserWSEndpoint !== undefined) {
+            this.browser = await this.webDriver.connect(options.browserWSEndpoint);
+        } else {
+            this.browser = await this.webDriver.launch(options?.browserExecutablePath);
+        }
+
         this.page = await this.browser.newPage();
     }
 
@@ -53,8 +70,8 @@ export class Page {
             return { error: this.lastBrowserError, pageResponseCode: this.lastBrowserError.statusCode };
         }
 
-        if (isNil(this.navigationResponse)) {
-            throw new Error('No URL was opened before attempting to scan page');
+        if (!this.isOpen()) {
+            throw new Error(`Page is not ready. Call create() and navigateToUrl() before scan.`);
         }
 
         return this.scanPageForIssues(contentSourcePath);
@@ -66,12 +83,8 @@ export class Page {
         }
     }
 
-    public getUnderlyingPage(): Puppeteer.Page | null {
-        if (!isNil(this.lastBrowserError) || isNil(this.navigationResponse) || isNil(this.page)) {
-            return null;
-        }
-
-        return this.page;
+    public isOpen(): boolean {
+        return !isNil(this.page) && !this.page.isClosed() && isNil(this.lastBrowserError) && !isNil(this.navigationResponse);
     }
 
     private async scanPageForIssues(contentSourcePath?: string): Promise<AxeScanResults> {
