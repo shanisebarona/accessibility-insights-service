@@ -4,7 +4,7 @@ import { FeatureFlags, GuidGenerator, ServiceConfiguration, System, RetryHelper 
 import { inject, injectable } from 'inversify';
 import { isEmpty, isNil } from 'lodash';
 import { GlobalLogger, ScanTaskCompletedMeasurements } from 'logger';
-import { AxeScanResults, Page } from 'scanner-global-library';
+import { AxeScanResults, BrowserStartOptions, Page } from 'scanner-global-library';
 import {
     OnDemandPageScanRunResultProvider,
     PageScanRunReportProvider,
@@ -111,7 +111,10 @@ export class Runner {
     }
 
     private async openPage(url: string): Promise<void> {
-        await this.page.create();
+        try {
+            const options: BrowserStartOptions =  {};
+            await this.page.create();
+        }
         await this.page.navigateToUrl(url);
     }
 
