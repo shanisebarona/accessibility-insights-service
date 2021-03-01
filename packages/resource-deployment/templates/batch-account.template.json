@@ -99,6 +99,12 @@
             "metadata": {
                 "description": "maxTasksPerNode for on-demand-scan-request-pool"
             }
+        },
+        "appInsightsInstrumentationKey": {
+            "type": "string",
+            "metadata": {
+                "description": "App insights instrumentation key"
+            }
         }
     },
     "variables": {
@@ -179,6 +185,10 @@
                         {
                             "name": "KEY_VAULT_NAME",
                             "value": "[parameters('keyVault')]"
+                        },
+                        {
+                            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                            "value": "[parameters('appInsightsInstrumentationKey')]"
                         }
                     ],
                     "resourceFiles": [
