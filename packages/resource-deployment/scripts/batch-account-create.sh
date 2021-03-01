@@ -45,6 +45,7 @@ function setParameterFilePath() {
 }
 
 function deployBatch() {
+    appInsightsKey=$(az monitor app-insights component show --app "$appInsightsName" --resource-group "$resourceGroupName" --query "instrumentationKey" -o tsv)
     # Deploy Azure Batch account using resource manager template
     echo "Deploying Azure Batch account in resource group $resourceGroupName with template $batchTemplateFile"
     resources=$(
@@ -54,6 +55,7 @@ function deployBatch() {
             --parameters "$parameterFilePath" \
             --parameters containerRegistryServerUserName=$containerRegistryUsername \
             --parameters containerRegistryServerPassword=$containerRegistryPassword \
+            --parameters appInsightsInstrumentationKey=$appInsightsKey \
             --query "properties.outputResources[].id" \
             -o tsv
     )
