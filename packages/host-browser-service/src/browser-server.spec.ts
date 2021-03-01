@@ -14,16 +14,12 @@ describe(BrowserServer, () => {
     const launcherMock = Mock.ofType<BrowserLauncher>();
     const loggerMock = Mock.ofType<GlobalLogger>();
     const serverMock = Mock.ofType<http.Server>();
-    const wsProxyMock = Mock.ofInstance((
-        req: http.IncomingMessage,
-        socket: unknown,
-        head: unknown,
-        options?: Server.ServerOptions) => null);
+    const wsProxyMock = Mock.ofInstance(new Server().ws);
 
     let requestListener: http.RequestListener;
     let closeListener: () => void;
     let listenListener: () => void;
-    let upgradeListener: (...args: unknown[]) => void;
+    let upgradeListener: (...args: unknown[]) => Promise<void>;
 
     const httpStub = {
         createServer: (rl: http.RequestListener) => {
@@ -105,7 +101,7 @@ describe(BrowserServer, () => {
         loggerMock.verify((m) => m.logInfo(It.isAnyString()), Times.once());
     });
 
-    it('proxies to ws target when upgrade event emitted', () => {
+    it('proxies to ws target when upgrade event emitted', async () => {
         const req = {} as http.IncomingMessage;
         const socket = {};
         const head = {};
@@ -115,8 +111,7 @@ describe(BrowserServer, () => {
         } as Puppeteer.Browser;
         launcherMock.setup((l) => l.launch(It.isAny())).returns(() => Promise.resolve(browserStub));
 
-        upgradeListener(req, socket, head);
-        // debugging this test
+        await upgradeListener(req, socket, head);
         wsProxyMock.verify(m => m(req, socket, head, { target }), Times.once());
     });
 });
