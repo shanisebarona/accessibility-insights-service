@@ -43,7 +43,13 @@ export class PageScanProcessor {
     }
 
     private async openPage(url: string): Promise<void> {
-        await this.page.create();
+        try {
+            await this.page.create({
+                browserWSEndpoint: `${process.env.HOST_BROWSER_ENDPOINT}`,
+            });
+        } catch {
+            await this.page.create();
+        }
         await this.page.navigateToUrl(url);
     }
 
