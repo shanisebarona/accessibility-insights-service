@@ -11,7 +11,7 @@ module.exports = (env) => {
 
     return {
         devtool: 'cheap-source-map',
-        externals: ['puppeteer', 'yargs', '@axe-core/puppeteer'],
+        externals: ['puppeteer', '@axe-core/puppeteer'],
         entry: {
             ['host-browser-service']: path.resolve('./src/index.ts'),
         },
