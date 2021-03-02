@@ -8,6 +8,7 @@ Param(
 )
 
 $global:keyvault = $keyvault
+$global:NODE_VERSION="12.20.2"
 
 function exitWithUsageInfo {
     Write-Output "Usage: pool-startup.ps1 -k <key vault name>"
@@ -20,6 +21,14 @@ function installBootstrapPackages() {
     az upgrade
 }
 
+function installNode() {
+    Write-Output "Installing node"
+    Invoke-WebRequest "https://nodejs.org/dist/v$global:NODE_VERSION/node-v$global:NODE_VERSION-win-x64.zip" -OutFile 'node.zip' -UseBasicParsing
+    Expand-Archive node.zip -DestinationPath C:\
+    Rename-Item -Path "C:\node-v$global:NODE_VERSION-win-x64" -NewName 'C:\nodejs'
+
+    $env:PATH="$env:PATH;C:\nodejs"
+}
 
 if ([string]::IsNullOrEmpty($global:keyvault)) {
     $global:keyvault = $env:KEY_VAULT_NAME;
@@ -30,10 +39,14 @@ if ([string]::IsNullOrEmpty($global:keyvault)) {
 }
 
 installBootstrapPackages
+installNode
 
 ./pull-image-from-container-registry.ps1 -k $global:keyvault
 
 Write-Output "Invoking custom pool startup script"
 ./custom-pool-post-startup.ps1
+
+Write-Output "Starting browser host service"
+node host-browser-service.js
 
 Write-Output "Successfully completed pool startup script execution"
