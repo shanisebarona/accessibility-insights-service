@@ -26,7 +26,8 @@ describe(PuppeteerCrawlerEngine, () => {
     const maxRequestsPerCrawl: number = 100;
     const pageProcessorStub: PageProcessor = {
         pageHandler: () => null,
-        gotoFunction: () => null,
+        preNavigation: () => null,
+        postNavigation: () => null,
         pageErrorProcessor: () => null,
     };
 
@@ -66,17 +67,20 @@ describe(PuppeteerCrawlerEngine, () => {
             handlePageTimeoutSecs: 300,
             requestQueue: requestQueueStub,
             handlePageFunction: pageProcessorStub.pageHandler,
-            gotoFunction: pageProcessorStub.gotoFunction,
+            preNavigationHooks: [pageProcessorStub.preNavigation],
+            postNavigationHooks: [pageProcessorStub.postNavigation],
             handleFailedRequestFunction: pageProcessorStub.pageErrorProcessor,
             maxRequestsPerCrawl: maxRequestsPerCrawl,
-            launchPuppeteerOptions: {
-                args: puppeteerDefaultOptions,
-                defaultViewport: {
-                    width: 1920,
-                    height: 1080,
-                    deviceScaleFactor: 1,
+            launchContext: {
+                launchOptions: {
+                    args: puppeteerDefaultOptions,
+                    defaultViewport: {
+                        width: 1920,
+                        height: 1080,
+                        deviceScaleFactor: 1,
+                    },
                 },
-            } as Apify.LaunchPuppeteerOptions,
+            },
         };
 
         puppeteerCrawlerMock.setup((o) => o.run()).verifiable();
@@ -104,7 +108,7 @@ describe(PuppeteerCrawlerEngine, () => {
         crawlerRunOptions.chromePath = 'chrome path';
         crawlerConfigurationMock.setup((o) => o.setChromePath(crawlerRunOptions.chromePath)).verifiable();
 
-        baseCrawlerOptions.launchPuppeteerOptions.useChrome = true;
+        baseCrawlerOptions.launchContext.useChrome = true;
         crawlerFactoryMock
             .setup((o) => o.createPuppeteerCrawler(baseCrawlerOptions))
             .returns(() => puppeteerCrawlerMock.object)

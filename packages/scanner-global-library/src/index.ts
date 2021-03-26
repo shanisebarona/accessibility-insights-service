@@ -10,3 +10,4 @@ export { Page } from './page';
 export { AxeScanResults } from './axe-scan-results';
 export { WebDriver } from './web-driver';
 export { PageNavigator } from './page-navigator';
+export { NavigationHooks } from './navigation-hooks';
