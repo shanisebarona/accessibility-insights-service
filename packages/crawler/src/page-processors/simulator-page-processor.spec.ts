@@ -4,7 +4,7 @@ import 'reflect-metadata';
 
 import Apify from 'apify';
 import { Page } from 'puppeteer';
-import { PageNavigator } from 'scanner-global-library';
+import { NavigationHooks } from 'scanner-global-library';
 import { IMock, It, Mock } from 'typemoq';
 import { AxeResults } from 'axe-core';
 import { CrawlerConfiguration } from '../crawler/crawler-configuration';
@@ -15,6 +15,7 @@ import { EnqueueActiveElementsOperation } from '../page-operations/enqueue-activ
 import { BlobStore, DataStore } from '../storage/store-types';
 import { ApifyRequestQueueProvider } from '../types/ioc-types';
 import { SimulatorPageProcessor } from './simulator-page-processor';
+import { PuppeteerHandlePageInputs } from './page-processor-base';
 
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/consistent-type-assertions,  */
 
@@ -32,7 +33,7 @@ describe(SimulatorPageProcessor, () => {
     let enqueueLinksExtMock: IMock<typeof Apify.utils.enqueueLinks>;
     let clickElementOpMock: IMock<ClickElementOperation>;
     let enqueueActiveElementsOpExtMock: IMock<EnqueueActiveElementsOperation>;
-    let pageNavigatorMock: IMock<PageNavigator>;
+    let navigationHooks: IMock<NavigationHooks>;
     let crawlerConfigurationMock: IMock<CrawlerConfiguration>;
     let requestQueueProvider: ApifyRequestQueueProvider;
     let requestStub: Apify.Request;
@@ -49,7 +50,7 @@ describe(SimulatorPageProcessor, () => {
         enqueueLinksExtMock = Mock.ofType<typeof Apify.utils.enqueueLinks>();
         clickElementOpMock = Mock.ofType<ClickElementOperation>();
         enqueueActiveElementsOpExtMock = Mock.ofType<EnqueueActiveElementsOperation>();
-        pageNavigatorMock = Mock.ofType<PageNavigator>();
+        navigationHooks = Mock.ofType<NavigationHooks>();
         crawlerConfigurationMock = Mock.ofType(CrawlerConfiguration);
 
         crawlerConfigurationMock
@@ -93,7 +94,7 @@ describe(SimulatorPageProcessor, () => {
             dataBaseMock.object,
             enqueueActiveElementsOpExtMock.object,
             clickElementOpMock.object,
-            pageNavigatorMock.object,
+            navigationHooks.object,
             requestQueueProvider,
             crawlerConfigurationMock.object,
             enqueueLinksExtMock.object,
@@ -122,7 +123,7 @@ describe(SimulatorPageProcessor, () => {
         };
         blobStoreMock.setup((bs) => bs.setValue(`${expectedScanData.id}.data`, expectedScanData)).verifiable();
 
-        const inputs: Apify.PuppeteerHandlePageInputs = { page: pageStub, request: requestStub } as any;
+        const inputs: PuppeteerHandlePageInputs = { page: pageStub, request: requestStub } as any;
         await simulatorPageProcessor.pageHandler(inputs);
     });
 
@@ -150,7 +151,7 @@ describe(SimulatorPageProcessor, () => {
             .returns(async () => Promise.resolve({ clickAction: 'page-action' }))
             .verifiable();
 
-        const inputs: Apify.PuppeteerHandlePageInputs = { page: pageStub, request: requestStubClick } as any;
+        const inputs: PuppeteerHandlePageInputs = { page: pageStub, request: requestStubClick } as any;
         await simulatorPageProcessor.pageHandler(inputs);
     });
 
