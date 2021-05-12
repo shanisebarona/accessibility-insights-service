@@ -151,9 +151,7 @@ describe(PageProcessorBase, () => {
             .setup((o) => o.pageConfigurator)
             .returns(() => pageConfiguratorMock.object)
             .verifiable(Times.atLeastOnce());
-        navigationHooksMock
-            .setup(async (o) => o.postNavigation(crawlingContext.page, It.isAny(), It.isAny()))
-            .verifiable();
+        navigationHooksMock.setup(async (o) => o.postNavigation(crawlingContext.page, It.isAny(), It.isAny())).verifiable();
         dataBaseMock
             .setup((o) => o.addScanMetadata({ baseUrl: testUrl, basePageTitle: 'title', userAgent, browserResolution }))
             .verifiable();
