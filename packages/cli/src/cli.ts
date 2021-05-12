@@ -9,12 +9,12 @@ import './module-name-mapper';
 
 // @ts-ignore
 import * as cheerio from 'cheerio';
-import { isEmpty } from 'lodash';
 import yargs from 'yargs';
 import { System } from 'common';
 import { CliEntryPoint } from './cli-entry-point';
 import { ScanArguments } from './scan-arguments';
 import { setupCliContainer } from './setup-cli-container';
+import { validateScanArguments } from './validate-scan-arguments';
 
 (async () => {
     const scanArguments = getScanArguments();
@@ -28,7 +28,7 @@ import { setupCliContainer } from './setup-cli-container';
 function getScanArguments(): ScanArguments {
     const defaultOutputDir = 'ai_scan_cli_output';
 
-    return (yargs
+    return yargs
         .wrap(yargs.terminalWidth())
         .options({
             crawl: {
@@ -112,19 +112,9 @@ function getScanArguments(): ScanArguments {
             },
         })
         .check((args) => {
-            if (args.crawl && isEmpty(args.url)) {
-                throw new Error('The --url option is required for website crawling.');
-            }
-
-            if (isEmpty(args.url) && isEmpty(args.inputFile) && isEmpty(args.inputUrls)) {
-                throw new Error('Provide at least --url, --inputFile, or  --inputUrls option.');
-            }
-
-            if (args.restart === true && args.continue === true) {
-                throw new Error('Options --restart and --continue are mutually exclusive.');
-            }
+            validateScanArguments(args as ScanArguments);
 
             return true;
         })
-        .describe('help', 'Show help').argv as unknown) as ScanArguments;
+        .describe('help', 'Show help').argv as unknown as ScanArguments;
 }
