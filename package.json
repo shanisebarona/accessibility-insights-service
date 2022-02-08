@@ -70,7 +70,7 @@
     "resolutions": {
         "@npmcli/git": ">=2.1.0",
         "adal-node": ">=0.2.3",
-        "axe-core": "4.3.2",
+        "axe-core": "4.4.1",
         "normalize-url": "6.1.0",
         "filenamify-url": "^2.1.2",
         "filenamify": "^4.3.0",
