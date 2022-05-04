@@ -23,7 +23,8 @@ export class AxePuppeteerFactory {
 
         return new AxePuppeteer(page, axeSource)
             .configure(this.axeConfiguration)
-            .disableRules(this.ruleExclusion.accessibilityRuleExclusionList);
+            .disableRules(this.ruleExclusion.accessibilityRuleExclusionList)
+
     }
 
     private async getAxeSource(contentSourcePath?: string): Promise<string> {

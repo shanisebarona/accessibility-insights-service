@@ -23,30 +23,20 @@ export const localAxeConfiguration: AxeConfiguration = {
     // allow cross-origin scanning.
     allowedOrigins: ['<same_origin>'],
     disableOtherRules: true,
-    checks: [
-        {
-            id: 'dylang',
-            options: ['dylan'],
-            evaluate:
-                'function (node, options) {\n        var lang = (node.getAttribute("lang") || "").trim().toLowerCase();\n        var xmlLang = (node.getAttribute("xml:lang") || "").trim().toLowerCase();\n        var invalid = [];\n        (options || []).forEach(function(cc) {\n          cc = cc.toLowerCase();\n          if (lang && (lang === cc || lang.indexOf(cc.toLowerCase() + "-") === 0)) {\n            lang = null;\n          }\n          if (xmlLang && (xmlLang === cc || xmlLang.indexOf(cc.toLowerCase() + "-") === 0)) {\n            xmlLang = null;\n          }\n        });\n        if (xmlLang) {\n          invalid.push(\'xml:lang="\' + xmlLang + \'"\');\n        }\n        if (lang) {\n          invalid.push(\'lang="\' + lang + \'"\');\n        }\n        if (invalid.length) {\n          this.data(invalid);\n          return true;\n        }\n        return false;\n      }',
-            messages: {
-                pass: 'Good language',
-                fail: 'You mst use the DYLAN language',
-            },
-        } as axe.Check,
-    ],
     rules: [
         {
-            id: 'dylang',
-            metadata: {
-                description: "Ensures lang attributes have the value of 'dylan'",
-                help: "lang attribute must have the value of 'dylan'",
+            "id": "aria-allowed-role",
+            "excludeHidden": false,
+            "selector": "a[role][href], button[role], details[role], embed[role], iframe[role], img[role][usemap], input[role]:not([type='hidden']), label[role], select[role], textarea[role], video[role][controls]",
+            "matches": "aria-allowed-role-matches",
+            "tags": ["cat.aria", "best-practice"],
+            "metadata": {
+              "description": "Please work!!!",
+              "help": "ARIA role should be appropriate for the element"
             },
-            selector: 'html',
-            any: [],
-            all: [],
-            none: ['dylang'],
-            tags: ['wcag2aa'],
-        } as axe.Rule,
-    ],
+            "all": [],
+            "any": ["aria-allowed-role"],
+            "none": []
+          } as axe.Rule
+    ]
 };
